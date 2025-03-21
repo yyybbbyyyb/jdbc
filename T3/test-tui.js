@@ -200,7 +200,7 @@ function renderBoard() {
   // Place foods
   for (let i = 0; i < food_num; i++) {
     const x = foods[i * 2] - 1;     // Convert to 0-index
-    const y = foods[i * 2 + 1] - 1;
+    const y = n - foods[i * 2 + 1];  // 反转y坐标使其从底部开始
     if (x >= 0 && x < n && y >= 0 && y < n) {
       board[y][x] = { type: 'food' };
     }
@@ -213,7 +213,7 @@ function renderBoard() {
     
     for (let j = 0; j < snake.length; j += 2) {
       const x = snake[j] - 1;      
-      const y = snake[j + 1] - 1;
+      const y = n - snake[j + 1];   // Reverse the y-coordinate so that it starts at the bottom
       
       if (x >= 0 && x < n && y >= 0 && y < n) {
         // First segment is head
@@ -321,7 +321,7 @@ function updateInfo(gameOverMessage = '') {
     const status = alive[i] ? 'Alive' : `Dead R${dead_round[i]}`;
     
     content += `Snake${symbol}: ${scores[i]} (${status})\n`;
-    content += `Time: ${time[i].toFixed(1)}ms\n`;
+    content += `Time: ${time[i].toFixed(3)}ms\n`;
   }
   
   // Add legend explanation

@@ -3,10 +3,10 @@ import { greedy_snake_step as snake1 } from './t3-snake-1-{PL}/pkg/snake.js';
 import { greedy_snake_step as snake2 } from './t3-snake-{num}-{PL}/pkg/snake.js';
 import { greedy_snake_step as snake3 } from './t3-snake-{num}-{PL}/pkg/snake.js';
 import { greedy_snake_step as snake4 } from './t3-snake-{num}-{PL}/pkg/snake.js';
-import { greedy_snake_step as snake5 } from './t3-snake-{num}-{PL}/pkg/snake.js';
-import { greedy_snake_step as snake6 } from './t3-snake-{num}-{PL}/pkg/snake.js';
-import { greedy_snake_step as snake7 } from './t3-snake-{num}-{PL}/pkg/snake.js';
-import { greedy_snake_step as snake8 } from './t3-snake-{num}-{PL}/pkg/snake.js';
+// import { greedy_snake_step as snake5 } from './t3-snake-{num}-{PL}/pkg/snake.js';
+// import { greedy_snake_step as snake6 } from './t3-snake-{num}-{PL}/pkg/snake.js';
+// import { greedy_snake_step as snake7 } from './t3-snake-{num}-{PL}/pkg/snake.js';
+// import { greedy_snake_step as snake8 } from './t3-snake-{num}-{PL}/pkg/snake.js';
 
 // Game mode
 export const GAME_MODE = "4snakes"; // "1v1" or "4snakes" or "custom"
@@ -17,10 +17,10 @@ export const snakeModules = [
   snake2,
   snake3,
   snake4,
-  snake5,
-  snake6,
-  snake7,
-  snake8,
+  // snake5,
+  // snake6,
+  // snake7,
+  // snake8,
   // You can add more snake decision functions
 ];
 
@@ -30,31 +30,31 @@ export const gameParameters = {
     boardSize: 5,
     snakeCount: 2,
     foodCount: 5,
-    maxRounds: 10,
+    maxRounds: 50,
     // Two snakes positioned at diagonal corners
     initialSnakePositions: [
       [1, 4, 1, 3, 1, 2, 1, 1],
-      [5, 5, 5, 4, 5, 3, 5, 2]
+      [5, 2, 5, 3, 5, 4, 5, 5]
     ]
   },
   "4snakes": {
     boardSize: 8,
     snakeCount: 4,
     foodCount: 10,
-    maxRounds: 20,
+    maxRounds: 100,
     // Four snakes positioned at four corners
     initialSnakePositions: [
-      [1, 4, 1, 3, 1, 2, 1, 1],
+      [4, 1, 3, 1, 2, 1, 1, 1],
       [8, 4, 8, 3, 8, 2, 8, 1],
+      [5, 8, 6, 8, 7, 8, 8, 8],
       [1, 5, 1, 6, 1, 7, 1, 8],
-      [8, 5, 8, 6, 8, 7, 8, 8]
     ]
   },
   "custom": {
     boardSize: 12,
     snakeCount: 8,  // Can support more snakes
-    foodCount: 10,
-    maxRounds: 20,
+    foodCount: 20,
+    maxRounds: 200,
     // Custom snake positions
     initialSnakePositions: [
         // Eight snakes positioned at corners and sides of the board

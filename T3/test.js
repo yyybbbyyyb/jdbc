@@ -21,9 +21,9 @@ let gameState = initializeGameState(TEST_MODE, snakeModules, CUSTOM_SEED);
 
 // Main simulation loop
 console.log(`Starting ${TEST_MODE} mode with ${gameState.snake_num} snakes, board size ${gameState.n}x${gameState.n}, ${gameState.food_num} foods, ${gameState.max_rounds} rounds`);
+console.log(`Game seed: 0x${gameState.seed.toString(16).padStart(16, '0')}`)
 
 while (!isGameOver(gameState)) {
-  console.log(`\nRound ${gameState.round + 1}/${gameState.max_rounds}:`);
   
   try {
     // Process one turn and get any messages
@@ -40,9 +40,11 @@ while (!isGameOver(gameState)) {
       console.error("Errors in this turn:");
       messages.errors.forEach(error => console.error(`- ${error}`));
     }
-    
-    console.log("Current board state:");
-    printBoardState(gameState);
+
+    // If necessary, output the intermediate state through the following lines
+    // console.log(`\nRound ${gameState.round + 1}/${gameState.max_rounds}:`);
+    // console.log("Current board state:");
+    // printBoardState(gameState);
   } catch (error) {
     console.error("Game error:", error);
     process.exit(1);
@@ -63,5 +65,5 @@ const finalResults = getFinalResults(gameState);
 console.log("\n=== FINAL RESULTS ===");
 console.log(`Snake scores:`);
 for (let i = 0; i < gameState.snake_num; i++) {
-  console.log(`Snake ${i + 1}: ${finalResults.scores[i]} points${finalResults.alive[i] ? " (survived)" : " (died in round " + (finalResults.dead_round[i]) + ")"} spent ${finalResults.time[i].toFixed(1)}ms`);
+  console.log(`Snake ${i + 1}: ${finalResults.scores[i]} points${finalResults.alive[i] ? " (survived)" : " (died in round " + (finalResults.dead_round[i]) + ")"} spent ${finalResults.time[i].toFixed(3)}ms`);
 }

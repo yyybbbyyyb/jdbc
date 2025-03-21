@@ -51,7 +51,7 @@ export function initializeGameState(mode = "4snakes", snakeModules, customSeed =
 
   // Timing
   let time = new Array(snake_num).fill(0);
-  const time_limit = 2000; // 2 second time limit
+  const time_limit = 500; // 500 ms time limit
 
   return {
     n,
@@ -226,7 +226,7 @@ function prepareBoardInput(gameState, warnings = [], errors = []) {
 
       // Check if timed out
       if (elapsedTime > time_limit) {
-        const warningMsg = `Snake ${alive_snake_index[i] + 1} timed out: ${elapsedTime.toFixed(1)}ms`;
+        const warningMsg = `Snake ${alive_snake_index[i] + 1} timed out: ${elapsedTime.toFixed(3)}ms`;
         warnings.push(warningMsg);
         
         // Determine previous direction based on head and neck position
@@ -274,18 +274,10 @@ export function isGameOver(gameState) {
 export function getFinalResults(gameState) {
   const { scores, alive, dead_round, time, max_rounds, snake_num } = gameState;
   
-  // Correct time for dead snakes
-  const correctedTime = [...time];
-  for (let i = 0; i < snake_num; i++) {
-    if (!alive[i]) {
-      correctedTime[i] += (max_rounds - dead_round[i]) * gameState.time_limit;
-    }
-  }
-  
   return {
     scores,
     alive,
     dead_round,
-    time: correctedTime
+    time
   };
 }
