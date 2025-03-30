@@ -145,6 +145,7 @@ mod tests {
     #[test]
     fn test_greedy_snake_move() {
         
+
         let body = [3, 4, 3, 3, 3, 2, 3, 1];
         let food = [1, 2];
         let barriers = [1, 1, 2, 1, 1, 3, 2, 3];
@@ -168,6 +169,23 @@ mod tests {
         let food = [5, 8];
         let barriers = [6, 8, 6, 7, 6, 6, 6, 5, 6, 4, 6, 3, 6, 2, 4, 2, 4, 3, 4, 4, 4, 5, 4, 6, 4, 7, 4, 8];
         assert_eq!(greedy_snake_move_barriers(&body, &food, &barriers), 2);
-        
+     
+        unsafe {
+            ANS.clear();
+        }
+
+        let body = [1, 5, 1, 4, 1, 3, 1, 2];
+        let food = [1, 1];
+        let barriers = [2, 1, 2, 2, 2, 3, 2, 4, 2, 5, 2, 6, 2, 7];
+        assert_eq!(greedy_snake_move_barriers(&body, &food, &barriers), 0);
+
+        unsafe {
+            ANS.clear();
+        }
+
+        let body = [1, 5, 1, 4, 1, 3, 1, 2];
+        let food = [1, 1];
+        let barriers = [2, 1, 2, 2, 2, 3, 2, 4, 2, 5, 2, 6, 2, 7, 2, 8];
+        assert_eq!(greedy_snake_move_barriers(&body, &food, &barriers), -1);
     }
 }

@@ -48,4 +48,21 @@ assert.strictEqual(greedy_snake_fn_checker([1,1,1,2,1,3,1,4], [1,5], greedy_snak
 assert.strictEqual(greedy_snake_fn_checker([1,1,1,2,2,2,2,1], [1,5], greedy_snake_move) >= 0, true);
 assert.strictEqual(greedy_snake_fn_checker([1,1,2,1,2,2,1,2], [1,5], greedy_snake_move) >= 0, true);
 
+
+// our test cases
+// 测试基本情况
+assert.strictEqual(greedy_snake_fn_checker([4,4,4,5,4,6,4,7], [5,4], greedy_snake_move) >= 0, true);
+assert.strictEqual(greedy_snake_fn_checker([1,1,1,2,1,3,1,4], [1,5], greedy_snake_move) >= 0, true);
+assert.strictEqual(greedy_snake_fn_checker([1,1,2,1,2,2,1,2], [3,1], greedy_snake_move) >= 0, true);
+
+// 测试避开墙壁
+assert.strictEqual(greedy_snake_fn_checker([1,1,1,2,1,3,1,4], [0,1], greedy_snake_move), -3);
+assert.strictEqual(greedy_snake_fn_checker([8,8,8,7,8,6,8,5], [9,8], greedy_snake_move), -3);
+
+// 测试避开自身
+assert.strictEqual(greedy_snake_fn_checker([3,3,3,4,4,4,4,3], [2,3], greedy_snake_move) >= 0, true);
+assert.strictEqual(greedy_snake_fn_checker([4,4,4,5,5,5,4,5], [4,6], greedy_snake_move) >= 0, true);
+
+// 测试复杂路径
+assert.strictEqual(greedy_snake_fn_checker([4,4,4,5,3,5,3,4], [2,4], greedy_snake_move) >= 0, true);
 console.log("🎉 You have passed all the tests provided.");

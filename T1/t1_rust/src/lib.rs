@@ -71,36 +71,40 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_greedy_snake_move() {
-        // 原有测试不变
-        // Test case 1: Move right to reach the food
-        let body = [4, 4, 4, 5, 4, 6, 4, 7];
-        let food = [5, 4];
-        assert_eq!(greedy_snake_move(&body, &food), 3);
+    fn test_basic_movement() {
+        // 直线朝向食物
+        assert_eq!(greedy_snake_move(&[4, 4, 4, 5, 4, 6, 4, 7], &[5, 4]), 3); // 右
+        assert_eq!(greedy_snake_move(&[4, 4, 4, 3, 4, 2, 4, 1], &[3, 4]), 1); // 左
+        assert_eq!(greedy_snake_move(&[4, 4, 3, 4, 2, 4, 1, 4], &[4, 5]), 0); // 上
+        assert_eq!(greedy_snake_move(&[4, 4, 5, 4, 6, 4, 7, 4], &[4, 3]), 2); // 下
+    }
 
-        // Test case 2: Move down to reach the food
-        let body = [1, 1, 1, 2, 1, 3, 1, 4];
-        let food = [1, 5];
-        assert_eq!(greedy_snake_move(&body, &food), 3);
+    #[test]
+    fn test_avoid_walls() {
+        // 靠近边界，避免超出范围
+        assert_ne!(greedy_snake_move(&[1, 1, 1, 2, 1, 3, 1, 4], &[0, 1]), 1); // 不应向左 (越界)
+        assert_ne!(greedy_snake_move(&[8, 8, 8, 7, 8, 6, 8, 5], &[9, 8]), 3); // 不应向右 (越界)
+        assert_ne!(greedy_snake_move(&[1, 8, 2, 8, 3, 8, 4, 8], &[1, 9]), 0); // 不应向上 (越界)
+        assert_ne!(greedy_snake_move(&[8, 1, 7, 1, 6, 1, 5, 1], &[8, 0]), 2); // 不应向下 (越界)
+    }
 
-        // Test case 3: Move left to reach the food
-        let body = [5, 5, 5, 6, 5, 7, 5, 8];
-        let food = [4, 5];
-        assert_eq!(greedy_snake_move(&body, &food), 1);
+    #[test]
+    fn test_avoid_self() {
+        // 蛇身形成障碍，必须绕行
+        let body = [3, 3, 3, 4, 4, 4, 4, 3];
+        let food = [2, 3];
+        assert_eq!(greedy_snake_move(&body, &food), 1); // 只能向左
 
-        // Test case 4: Move up to reach the food
-        let body = [5, 5, 5, 4, 5, 3, 5, 2];
-        let food = [5, 1];
-        assert_eq!(greedy_snake_move(&body, &food), 0);
-        
-        let body = [2, 2, 2, 3, 3, 3, 4, 3];
-        let food = [2, 1];
-        assert_eq!(greedy_snake_move(&body, &food), 2);
-        
-        // 蛇头在(2,2)，蛇身形成U形，食物在(2,1)
-        // 向上会撞到蛇身，应该选择其他方向
-        let body = [2, 2, 2, 3, 3, 3, 3, 2];
-        let food = [2, 1];
-        assert_eq!(greedy_snake_move(&body, &food), 2);
+        let body = [4, 4, 4, 5, 5, 5, 4, 5];
+        let food = [4, 6];
+        assert_ne!(greedy_snake_move(&body, &food), 0); // 不能往上 (有身体)
+    }
+
+    #[test]
+    fn test_complex_path() {
+        // 必须绕路才能到达食物
+        let body = [4, 4, 4, 5, 3, 5, 3, 4];
+        let food = [2, 4];
+        assert_eq!(greedy_snake_move(&body, &food), 1); // 选择向左绕行
     }
 }
